@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   neo4j:
     image: neo4j:4.0.3
@@ -8,7 +9,50 @@ services:
       - "7474:7474"
       - "7687:7687"
     volumes:
-      - ./neo4j/plugins:/plugins
+      - ./volume/plugins:/plugins
     environment:
-      NEO4J_AUTH: neo4j/streams
-      NEO4J_dbms_logs_debug_level: DEBUG
+      - NEO4J_AUTH=neo4j/pass
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.\\\*
+      - NEO4JLABS_PLUGINS=["apoc"]
+
+
+#      - NEO4J_dbms_logs_debug_level=DEBUG
+#      - NEO4J_dbms_security_procedures_unrestricted="apoc.*"
+#      - NEO4J_dbms_security_procedures_whitelist="apoc.*"
+#      - NEO4J_apoc_import_file_enabled=true
+#      - NEO4J_apoc_import_file_use__neo4j__config=true
+#      - NEO4J_apoc_export_file_enabled=true
+#      - NEO4J_dbms_shell_enabled=true
+#      - NEO4J_AUTH=neo4j/pass
+#      - NEO4J_HEAP_MEMORY=4G
+#      - NEO4J_CACHE_MEMORY=2G
+#      - NEO4JLABS_PLUGINS=["apoc"]
+
+
+
+
+#services:
+#  neo4j:
+#    image: neo4j:latest
+#     image: neo4j:4.0.3
+#    network_mode: "bridge"
+#    ports:
+#      - "7474:7474"
+#      - "7687:7687"
+#    environment:
+#      - NEO4J_AUTH=none
+#      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+#      - NEO4J_dbms_security_procedures_whitelist=apoc.*
+#      - NEO4J_apoc_import_file_enabled=true
+#      - NEO4J_dbms_shell_enabled=true
+#      - NEO4JLABS_PLUGINS=["apoc"]
+#    volumes:
+#      - ./volume/data:/data
+#      - ./volume/import:/import
+#      - ./volume/scripts:/scripts
+#      - ./volume/plugins:/plugins
+#      - ./volume/data:/data
+#      - ./volume/import:/import
